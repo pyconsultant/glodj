@@ -23,9 +23,15 @@ class EglResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('EGLid')
-                    ->required()
-                    ->maxLength(5),
+                // Ne pas demander la saisie de id qui est un champ auto-incémentée
+                // Forms\Components\TextInput::make('id')
+                //     ->required()
+                //     ->maxLength(5),
+                Forms\Components\TextInput::make('code')
+                    ->label('Code de l\'appartement')
+                    ->required() // ou ->nullable() selon ton besoin
+                    ->maxLength(10)
+                    ->unique(ignoreRecord: true), // Filament gère même l'unicité automatiquement !                    
                 Forms\Components\TextInput::make('nom')
                     ->required()
                     ->maxLength(25),
@@ -55,22 +61,32 @@ class EglResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('EGLid')
-                ->label(__('Nom du bien')) // Utilise la traduction Laravel
-                    ->searchable(),
+                // pas la peine là non plus d'afficcher l'id de l'appartement
+                // Tables\Columns\TextColumn::make('id')
+                // ->label(__('Nom du bien')) // Utilise la traduction Laravel
+                //     ->searchable(),
+                Tables\Columns\TextColumn::make('code')
+                    ->label('Code')
+                    ->sortable()
+                    ->searchable(), // Permet de chercher par code dans la barre de recherche                    
                 Tables\Columns\TextColumn::make('nom')
+                    ->sortable() // Permet de chercher par code dans la barre de recherche                        
                     ->searchable(),
                 Tables\Columns\TextColumn::make('adresse')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('complement')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codepostal')
-                    ->searchable(),
+                    ->sortable()
+                    ->searchable(), // Permet de chercher par code dans la barre de recherche                    ,
                 Tables\Columns\TextColumn::make('commune')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codepays')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pays')
+                    ->sortable()    
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

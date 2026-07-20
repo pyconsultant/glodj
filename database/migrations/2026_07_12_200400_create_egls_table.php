@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('egls', function (Blueprint $table) {
             $table->id();
-            $table->string('egl_id',5); // code 
+            $table->string('code',5)->unique(); // code 
             $table->string('nom',25); // nom de l'EGL (appartement ou garage)
             $table->string('adresse',35); 
             $table->string('complement',35)->nullable(); 

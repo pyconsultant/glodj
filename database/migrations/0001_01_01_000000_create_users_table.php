@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('password');
             //ad:administrateur op:opérateur ex:exploitant an:analyste lo:locataire  ga:garant
             // par défaut, locataire
-            $table->integer('roles')->default(32); 
+            // $table->integer('roles')->default(32); 
+            $table->integer('roles')->default(UserRole::LOCATAIRE->value); 
             $table->rememberToken();
             $table->timestamps();
         });
