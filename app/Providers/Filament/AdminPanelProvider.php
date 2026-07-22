@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandLogo(asset('images/jasmin.png'))
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -52,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
+//                \Filament\Http\Middleware\Authenticate::class,
                 Authenticate::class,
             ]);
     }

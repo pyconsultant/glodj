@@ -11,4 +11,6 @@ enum UserRole: int
     case ANALYSTE = 16;
     case LOCATAIRE = 32;
     case GARANT = 64;
+    case PROSPECT = 128;
+    case INVITE = 512;
 }

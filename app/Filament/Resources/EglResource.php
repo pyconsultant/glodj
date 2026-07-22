@@ -21,6 +21,7 @@ class EglResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // pour l'affichage de saisie (création/édition)
         return $form
             ->schema([
                 // Ne pas demander la saisie de id qui est un champ auto-incémentée
@@ -28,35 +29,44 @@ class EglResource extends Resource
                 //     ->required()
                 //     ->maxLength(5),
                 Forms\Components\TextInput::make('code')
-                    ->label('Code de l\'appartement')
+                    ->label(__('Code de l\'appartement'))
                     ->required() // ou ->nullable() selon ton besoin
                     ->maxLength(10)
                     ->unique(ignoreRecord: true), // Filament gère même l'unicité automatiquement !                    
                 Forms\Components\TextInput::make('nom')
+                    ->label(__('Désignation'))
                     ->required()
                     ->maxLength(25),
                 Forms\Components\TextInput::make('adresse')
+                    ->label(__('Adresse'))
                     ->required()
                     ->maxLength(35),
                 Forms\Components\TextInput::make('complement')
+                    ->label(__('Complément'))
                     ->maxLength(35),
                 Forms\Components\TextInput::make('codepostal')
+                    ->label(__('Code Postal'))
                     ->required()
                     ->maxLength(5),
                 Forms\Components\TextInput::make('commune')
+                    ->label(__('Commune'))
                     ->required()
                     ->maxLength(25),
                 Forms\Components\TextInput::make('codepays')
+                    ->label(__('Code Pays'))
                     ->required()
                     ->maxLength(3),
                 Forms\Components\TextInput::make('pays')
+                    ->label(__('Pays'))
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('commentaire')
+                    ->label(__('Commentaire'))
                     ->columnSpanFull(),
             ]);
     }
 
+    // pour l'affichage en colonnes
     public static function table(Table $table): Table
     {
         return $table
@@ -66,28 +76,38 @@ class EglResource extends Resource
                 // ->label(__('Nom du bien')) // Utilise la traduction Laravel
                 //     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
-                    ->label('Code')
+                    ->label(__('Code'))
                     ->sortable()
                     ->searchable(), // Permet de chercher par code dans la barre de recherche                    
                 Tables\Columns\TextColumn::make('nom')
+                    ->label(__('Désignation'))
                     ->sortable() // Permet de chercher par code dans la barre de recherche                        
                     ->searchable(),
                 Tables\Columns\TextColumn::make('adresse')
+                    ->label(__('Adresse'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('complement')
+                    ->label(__('Complément'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codepostal')
+                    ->label(__('Code Postal'))
                     ->sortable()
                     ->searchable(), // Permet de chercher par code dans la barre de recherche                    ,
                 Tables\Columns\TextColumn::make('commune')
+                    ->label(__('Commune'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('codepays')
+                    ->label(__('Code Pays'))
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('pays')
+                    ->label(__('Pays'))
                     ->sortable()    
                     ->searchable(),
+                Tables\Columns\TextColumn::make('image_path')
+                    ->label(__('Photo')),
+//                    ->circular(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
