@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('uals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('egls',5)->constrained()->cascadeOnDelete();
+            $table->foreignId('egl_id')
+            ->constrained()
+            ->cascadeOnDelete();
             $table->smallinteger('num'); // numéro de la chambre
             $table->string('UALid,25'); // nom de l'unité (chambre jaune, chambre de ...)
             $table->enum('type',['chambre','garage','parking','cave']);

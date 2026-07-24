@@ -29,8 +29,15 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(asset('images/jasmin.png'))
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'danger' => Color::Red,
+                'gray' => Color::Gray,
+                'primary' => Color::Lime,
+                'info' => Color::Blue,
+                'succes' => Color::Emerald,
+                'warning' => Color::Orange,
             ])
+//            ->font("Roboto Mono,provider:GoogleFontProvider::class")
+            ->font("Arial")
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

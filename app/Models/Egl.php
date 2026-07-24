@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Egl extends Model
 {
     // Pour ne pas obliger à remplir es champs
     protected $guarded = [];
+
+    // / Indique les champs qui peuvent être remplis en masse
+    // protected $fillable = ['nom', 'adresse', 'type_global'];    
+
     // sinon, c'est ici les champs obligatores
     // protected $fillable = [
     //     'EGLid',
@@ -21,15 +26,12 @@ class Egl extends Model
     //     'commentaire',
     // ];
 
-    // $table->string('EGLid',5); // code 
-    // $table->string('nom',25); // nom de l'EGL (appartement ou garage)
-    // $table->string('adresse',35); 
-    // $table->string('complement',35); 
-    // $table->string('codepostal',5); 
-    // $table->string('commune',25); 
-    // $table->string('codepays',3); 
-    // $table->string('pays'); 
-    // $table->longtext('commentaire'); 
-
-
+    /**
+     * Obtenir toutes les unités atomiques (Ual) associées à cette entité globale (Egl).
+     */
+    public function uals(): HasMany
+    {
+        return $this->hasMany(Ual::class);
+    }
 }
+

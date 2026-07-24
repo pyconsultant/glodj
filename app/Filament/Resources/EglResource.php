@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\EglResource\RelationManagers\UalsRelationManager;
 use App\Filament\Resources\EglResource\Pages;
 use App\Filament\Resources\EglResource\RelationManagers;
 use App\Models\Egl;
@@ -18,6 +19,24 @@ class EglResource extends Resource
     protected static ?string $model = Egl::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    // Nom dans le menu de navigation
+    public static function getNavigationLabel(): string
+    {
+        return __('Entités Globales');
+    }
+
+    // Nom au singulier (ex: "Créer une Entité Globale")
+    public static function getModelLabel(): string
+    {
+        return __('Entité Globale');
+    }
+
+    // Nom au pluriel (ex: titre de la liste)
+    public static function getPluralModelLabel(): string
+    {
+        return __('Entités Globales');
+    }
 
     public static function form(Form $form): Form
     {
@@ -117,6 +136,11 @@ class EglResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->striped()
+            // On applique la classe CSS d'alternance sur CHAQUE ligne,
+            // et le navigateur l'applique uniquement 1 ligne sur 2 (even) !
+//            ->recordClasses(fn () => '[&:nth-child(even)]:bg-blue-50/70 dark:[&:nth-child(even)]:bg-blue-900/20')
+//            ->recordClasses(fn () => '[&:nth-child(even)]:bg-blue dark:[&:nth-child(even)]:bg-blue')
             ->filters([
                 //
             ])
@@ -133,7 +157,8 @@ class EglResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            // 2. Déclare le Relation Manager ici :
+            UalsRelationManager::class,
         ];
     }
 
