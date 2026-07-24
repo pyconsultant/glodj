@@ -34,4 +34,4 @@ class Egl extends Model
         return $this->hasMany(Ual::class);
     }
 }
-
+?>

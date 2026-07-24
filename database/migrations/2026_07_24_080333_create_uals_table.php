@@ -17,7 +17,7 @@ return new class extends Migration
             ->constrained()
             ->cascadeOnDelete();
             $table->smallinteger('num'); // numéro de la chambre
-            $table->string('UALid,25'); // nom de l'unité (chambre jaune, chambre de ...)
+            $table->string('UALid'); // nom de l'unité (chambre jaune, chambre de ...)
             $table->enum('type',['chambre','garage','parking','cave']);
             $table->decimal('surface',4,1);
             $table->decimal('loyer',8,2); // montant du loyer mensuel par défaut
