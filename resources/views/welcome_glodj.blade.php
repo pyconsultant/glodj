@@ -75,9 +75,17 @@ body {
 
         <div></div>
         <div></div>
+        <div>
+        <button class="bg-indigo-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg transition duration-300 shadow-md">
+            Bouton Tailwind
+        </button>
+        </div>
         <div></div>
-        <div></div>
-        <div></div>
+        <div>
+        <button class="bg-indigo-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg transition duration-300 shadow-md">
+            Bouton Tailwind
+        </button>
+        </div>
         <div></div>
     </div>
 

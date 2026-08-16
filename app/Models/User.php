@@ -13,15 +13,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\UserRole;
 
-// use Database\Factories\UserFactory;
-// use Illuminate\Database\Eloquent\Attributes\Fillable;
-// use Illuminate\Database\Eloquent\Attributes\Hidden;
-// use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Illuminate\Foundation\Auth\User as Authenticatable;
-// use Illuminate\Notifications\Notifiable;
-
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
+
 class User extends Authenticatable implements FilamentUser,MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
@@ -30,12 +24,29 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
         'name',
         'email',
         'password',
+        'role_mask'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];    
+    /*
+     * Vérifie si l'utilisateur possède un rôle spécifique
+     */
+    public function hasRole(UserRole $role): bool
+    {
+        return ($this->roles_mask & $role->value) === $role->value;
+    }
+
+/**
+     * Ajoute un rôle au bitmask (ex: quand le prospect devient locataire)
+     */
+    public function addRole(UserRole $role): void
+    {
+        $this->roles_mask |= $role->value;
+        $this->save();
+    }    
 
     /**
      * Get the attributes that should be cast.
@@ -49,7 +60,7 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
             'password' => 'hashed',
         ];
     }
-
+    
     // 3. On ajoute la fonction obligatoire demandée par le contrat
     public function canAccessPanel(Panel $panel): bool
     {
@@ -72,14 +83,15 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
         return $this->email === 'pyr.consultant@gmail.com';
     }    
 
-    public function hasRole(UserRole $role): bool
-    {
-        return ($this->role_mask & $role->value) === $role->value;
-    }
-
     public function addRole(UserRole $role): void
     {
         $this->role_mask |= $role->value;
+    }
+
+    // À l'intérieur de la classe User :
+    public function candidat(): HasOne
+    {
+        return $this->hasOne(Candidat::class);
     }
 }
 

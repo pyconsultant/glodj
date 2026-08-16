@@ -11,6 +11,34 @@ enum UserRole: int
     case ANALYSTE = 16;
     case LOCATAIRE = 32;
     case GARANT = 64;
-    case PROSPECT = 128;
+    case CANDIDAT = 128;
     case INVITE = 512;
+// Vérifie si un bitmask contient ce rôle
+public static function hasRole(int $bitmask, self $role): bool
+{
+    return ($bitmask & $role->value) === $role->value;
+}
+
+// Libellé propre pour l'affichage
+public function label(): string
+{
+    return match($this) {
+        self::ADMINISTRATEUR =>'Administratur',
+        self::OPERATEUR =>'Opérateur',
+        self::EXPLOITANT =>'Exploitant',
+        self::COMPTABLE =>'Comptable',
+        self::ANALYSTE =>'Analyste',
+        self::LOCATAIRE =>'Locataire',
+        self::GARANT =>'Garant',
+        self::CANDIDAT =>'Candidat',
+        self::INVITE =>'Invité',
+
+        // self::CANDIDAT => 'Candidat',
+        // self::TENANT => 'Locataire',
+        // self::MANAGER => 'Gestionnaire',
+        // self::OPERATOR => 'Opérateur',
+        // self::ADMIN => 'Administrateur',
+    };
+}
+
 }
