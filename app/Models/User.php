@@ -64,29 +64,18 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
     // 3. On ajoute la fonction obligatoire demandée par le contrat
     public function canAccessPanel(Panel $panel): bool
     {
-        // $id = $panel->getId(); rtourne le nom de l'utilisateur créé lors de "php artisan make:filament-user"
-        
-        // $usertype = 4 ;
-        // $userfunction = ($usertype & 6);
-        // $usernationality = config('constants.nationalites.64');
-        // $userstate = config('constants.etats.BN');
+        // Si c'est le panel Admin, il faut le rôle ADMINISTRATEUR (valeur 1)
+        if ($panel->getId() === 'admin') {
+            return $this->hasRole(UserRole::ADMINISTRATEUR);
+        }
+        // Si c'est le panel Candidat, il faut le rôle CANDIDAT (valeur 1)
+        if ($panel->getId() === 'candidat') {
+            return $this->hasRole(UserRole::CANDIDAT);
+        }
 
-        $usertype = config('constants.LOCATAIRE'); ;
-
-        // $usertype = config('constants.1');
-        // $usertype = config('constants.2');
-        // $usertype = config('constants.4');
-        // $usertype = config('constants.8');
-        // $usertype = config('constants.16');
-        // $usertype = getenv("OWT_APP");
-        // Tu autorises uniquement ton adresse email à te connecter à l'administration
-        return $this->email === 'pyr.consultant@gmail.com';
+        // tester ici les conditions d'accès aux autres panels
+        return false;
     }    
-
-    public function addRole(UserRole $role): void
-    {
-        $this->role_mask |= $role->value;
-    }
 
     // À l'intérieur de la classe User :
     public function candidat(): HasOne
@@ -95,5 +84,5 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
     }
 }
 
-// mdp pour pyr.consultant@glaim.com : Pya1801Orowan
+// mdp pour pyr.consultant@glaim.com : Zorgen36
 // mdp pour kimlee@free.fr: Zorgen36

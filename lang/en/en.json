@@ -17,6 +17,30 @@
     "Montant charges": "Charges amount",
     "DGE": "DGE",
     "DGC": "DGC",
-    "Louable individuellement ?": "Individually rentable ?"   
+    "Louable individuellement ?": "Individually rentable ?",
+
+    "_comment_form_candidats": "--- TRADUCTIONS DE LA FORM CANDIDAT ---",    
+    "Vous": "You",
+    "Donnez-nous quelques informations sur vous.": "Give us some information about yourself.",
+    "Utilisateur rattaché": "Attached user.",
+    "Prénom": "First name.",
+    "Nom": "Name.",
+    "Adresse de oourriel": "email adress",
+    "Téléphone":"Télephone",
+    "Si votre numéro est hors de France indiquez l'indicatif du pays. Exemple Brésil : (55) XXXXX XXXX": "If your number is outside of France, enter the country code. Example: Brazil: (55) XXXXX XXXX First Name",
+    "Masculin": "Male",
+    "Féminin": "Female",
+    "Autre": "Other",
+    "La location":"The rental",
+    "Donnez-nous vos disponibités et préférences.": "Please provide your availability and preferences.",
+    "Date d'entrée souhaitée":"Desired entry date",
+    "Durée envisagée (en mois)": "Estimated duration (in months)",
+    "Que souhaitez-vous louer ?": "What would you like to rent?",
+    "Vous pouvez mettre jusqu'à trois choix":"You can list up to three choices.",
+    "Vos documents":"Your documents",
+    "Ces pièces sont facultatives à ce stade mais leur présence est un +": "These items are optional at this stage, but their presence is a plus.",
+    "Pièce d'identité":"Proof of identity",
+    "Titre de séjour":"Residence permit",
+    "Certificat Visale, ou GarantMe ou caution Garant physique ...":"Visale Certificate, or GarantMe or physical guarantor deposit..."
 }
  

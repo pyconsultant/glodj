@@ -11,6 +11,10 @@ class Candidat extends Model
     use HasFactory;
 
     protected $guarded = [];
+    protected $casts = [
+        'location' => 'array',
+        'date_naissance' => 'array',
+    ];
 
     /**
      * Relation : Le dossier de candidature appartient à un Utilisateur
