@@ -31,12 +31,32 @@ class CandidatFormSchema
                     ->collapsible() // Rend la section repliable par l'utilisateur
                     ->collapsed()
                     ->schema([
+                        // Select::make('user.name')
+                        //     ->label(__('Nom d\'utilisateur / Pseudo'))
+                        //     ->relationship('user', 'name')
+                        //     ->searchable()
+                        //     ->preload()
+                        //     ->required()
+                        //     ->disabled(),
                         Select::make('user_id')
+                            ->label(__('Nom d\'utilisateur / Pseudo'))
                             ->relationship('user', 'name')
                             ->searchable()
                             ->preload()
+                            // ->disabled() // Rend la sélection impossible pour l'admin
+                            // ->dehydrated(false) // Indique à Filament de ne pas renvoyer ce champ lors de la sauvegarde                            
                             ->required()
-                            ->label(__('Utilisateur rattaché')),
+                            ->disabled()
+                            ->label(__('Nom d\'utilisateur / Pseudo')),
+                            // ->disabled($isAdmin),
+                        // TextInput::make('user.name')
+                        //     ->label(__('Nom d\'utilisateur / Pseudo'))
+                        //     ->required()
+                        //     ->maxLength(255)
+                        //     // Rend le champ en lecture seule uniquement pour l'admin
+                        //     ->disabled($isAdmin)
+                        //     // Sécurité : empêche l'envoi de la donnée si le champ est désactivé
+                        //     ->dehydrated(fn () => ! $isAdmin),
                         TextInput::make('prenom')
                             ->label(__('Prénom'))
                             ->maxLength(255),
@@ -110,23 +130,28 @@ class CandidatFormSchema
                     ->schema([    
                             FileUpload::make('piece_identite_path')
                             ->label('Pièce d\'identité')
-                            ->directory('dossiers/identites')
+                            ->directory(fn ($record) => 'dossiers/candidat-' . ($record?->id ?? 'temp'))
+                            ->visibility('private') // Indique à Filament que le fichier n'est pas public                                                        
                             ->disk('public') // Indique d'utiliser le stockage public
+                            // ->directory('dossiers/identites')
+                            // ->visibility('public')
                             ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
-                            ->visibility('public')
                             ->maxSize(5120)
                             ->openable()
                             ->downloadable(),
                             FileUpload::make('titre_sejour_path')
-                            ->label('Pièce d\'identité')
-                            ->directory('dossiers/titresejour')
+                            ->label('Titre de séjour (non ressortissant d\'un pays de l\'UE)')
                             ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
+                            ->directory(fn ($record) => 'dossiers/candidat-' . ($record?->id ?? 'temp'))
+                            ->visibility('private') // Indique à Filament que le fichier n'est pas public                                                        
                             ->maxSize(5120)
+                            // ->directory('dossiers/titresejour')
+                            // ->visibility('public')
                             ->openable()
                             ->downloadable(),
                             Textarea::make('complement_libre')
-                                ->required()
-                                ->columnSpanFull(),
+//                                ->required()
+                                ->columnSpanFull(), // prend toute la largeur e la grid
                     ]), // fin section 3                    
 
                 // section 4 statut du dossier

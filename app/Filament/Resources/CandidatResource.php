@@ -34,6 +34,8 @@ class CandidatResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static bool $shouldRegisterNavigation = true; // (ou simplement supprimer cette ligne)
+
     public static function form(Form $form): Form
     {
         $isAdmin = true;
