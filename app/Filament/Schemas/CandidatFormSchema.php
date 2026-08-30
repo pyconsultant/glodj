@@ -24,7 +24,8 @@ class CandidatFormSchema
 //                 // Section 1 : informations du candidat
                 Section::make(__('Vous'))
                     ->extraAttributes([
-                        'class' => 'custom-green-section',
+//                        'class' => 'custom-green-section',
+                    'style' => 'background-color: #f0fdf4; border-color: #bbf7d0;',
                     ])
                     ->columns(2)
                     ->description(__('Donnez-nous quelques informations sur vous.'))
@@ -87,6 +88,9 @@ class CandidatFormSchema
 
             // Section 2 : le logement
                 Section::make(__('La location'))
+                    ->extraAttributes([
+                    'style' => 'background-color: #f0fdf4; color: #ff0000; border-color: #bbf7d0;',
+                    ])
                     ->columns(2)
                     ->description(__('Donnez-nous vos disponibités et préférences.'))
                     ->collapsible() // Rend la section repliable par l'utilisateur
@@ -123,6 +127,9 @@ class CandidatFormSchema
                                 ->modalSubmitAction(false) // Simple modale d'information sans bouton d'envoi
                                 ->modalCancelActionLabel('J\'ai compris'),
                         ])
+                    ->extraAttributes([
+                    'style' => 'background-color: #f0fdf4; border-color: #bbf7d0;',
+                    ])
                     ->columns(3)
                     ->description(__('Ces pièces sont facultatives à ce stade mais leur présence est un +'))
                     ->collapsible() // Rend la section repliable par l'utilisateur
@@ -132,9 +139,7 @@ class CandidatFormSchema
                             ->label('Pièce d\'identité')
                             ->directory(fn ($record) => 'dossiers/candidat-' . ($record?->id ?? 'temp'))
                             ->visibility('private') // Indique à Filament que le fichier n'est pas public                                                        
-                            ->disk('public') // Indique d'utiliser le stockage public
-                            // ->directory('dossiers/identites')
-                            // ->visibility('public')
+                            ->disk('local') // Indique d'utiliser le stockage public
                             ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
                             ->maxSize(5120)
                             ->openable()
@@ -144,9 +149,8 @@ class CandidatFormSchema
                             ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
                             ->directory(fn ($record) => 'dossiers/candidat-' . ($record?->id ?? 'temp'))
                             ->visibility('private') // Indique à Filament que le fichier n'est pas public                                                        
+                            ->disk('local') // Indique d'utiliser le stockage public
                             ->maxSize(5120)
-                            // ->directory('dossiers/titresejour')
-                            // ->visibility('public')
                             ->openable()
                             ->downloadable(),
                             Textarea::make('complement_libre')
@@ -156,6 +160,9 @@ class CandidatFormSchema
 
                 // section 4 statut du dossier
                     Section::make('Statut de votre dossier')
+                    ->extraAttributes([
+                    'style' => 'background-color: #f0fdf4; border-color: #bbf7d0;',
+                    ])
                     ->columns(1)
                     ->description('Consultez l\'avancement de votre dosiier ici')
                     ->collapsible() // Rend la section repliable par l'utilisateur
