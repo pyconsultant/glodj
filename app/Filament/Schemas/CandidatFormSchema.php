@@ -21,12 +21,16 @@ class CandidatFormSchema
     public static function make(bool $isAdmin = false): array
     {
         return [
-//                 // Section 1 : informations du candidat
+                // Section 1 : informations du candidat
                 Section::make(__('Vous'))
                     ->extraAttributes([
 //                        'class' => 'custom-green-section',
-                    'style' => 'background-color: #f0fdf4; border-color: #bbf7d0;',
+//                    'style' => 'color: #15803d;background-color: #f0fdf4; border-color: #bbf7d0;',
+                    // Fond vert très clair + bordure verte douce
+                    'style' => 'color: #ff0000;background-color: #00ff00; border: 1px solid #bbf7d0; rounded-xl;',
                     ])
+                    ->icon('heroicon-o-information-circle')
+//                    ->color('success') // Applique la nuance verte (Emerald/Teal) aux icônes et titres !
                     ->columns(2)
                     ->description(__('Donnez-nous quelques informations sur vous.'))
                     ->collapsible() // Rend la section repliable par l'utilisateur
@@ -59,6 +63,8 @@ class CandidatFormSchema
                         //     // Sécurité : empêche l'envoi de la donnée si le champ est désactivé
                         //     ->dehydrated(fn () => ! $isAdmin),
                         TextInput::make('prenom')
+                            ->prefixIcon('heroicon-m-at-symbol')
+                            ->prefixIconColor('teal')
                             ->label(__('Prénom'))
                             ->maxLength(255),
                         TextInput::make('nom')
@@ -88,8 +94,14 @@ class CandidatFormSchema
 
             // Section 2 : le logement
                 Section::make(__('La location'))
-                    ->extraAttributes([
-                    'style' => 'background-color: #f0fdf4; color: #ff0000; border-color: #bbf7d0;',
+//                     ->extraAttributes([
+// //                        'class' => 'custom-green-section',
+// //                    'style' => 'color: #15803d;background-color: #f0fdf4; border-color: #bbf7d0;',
+//                     // Fond vert très clair + bordure verte douce
+//                     'style' => 'color: #ff0000;background-color: #00ff00; border: 1px solid #bbf7d0; rounded-xl;',
+
+                ->extraAttributes([
+                    'style' => 'color: #ff0000;background-color: #00ff00; border: 1px solid #bbf7d0; rounded-xl;',
                     ])
                     ->columns(2)
                     ->description(__('Donnez-nous vos disponibités et préférences.'))
@@ -98,7 +110,7 @@ class CandidatFormSchema
                     ->schema([                    
                         DatePicker::make('date_entree_souhaitee')
                             ->label(__('Date d\'entrée souhaitée')),
-                        TextInput::make('duree_envisagee')
+                        TextInput::make('dure_envisagee')
                             ->label(__('Durée envisagée (en mois)'))                        
                             ->numeric(),
                         Repeater::make('location')
@@ -128,7 +140,7 @@ class CandidatFormSchema
                                 ->modalCancelActionLabel('J\'ai compris'),
                         ])
                     ->extraAttributes([
-                    'style' => 'background-color: #f0fdf4; border-color: #bbf7d0;',
+                    'style' => 'color: #ff0000;background-color: #00ff00; border: 1px solid #bbf7d0; rounded-xl;',
                     ])
                     ->columns(3)
                     ->description(__('Ces pièces sont facultatives à ce stade mais leur présence est un +'))
@@ -139,7 +151,7 @@ class CandidatFormSchema
                             ->label('Pièce d\'identité')
                             ->directory(fn ($record) => 'dossiers/candidat-' . ($record?->id ?? 'temp'))
                             ->visibility('private') // Indique à Filament que le fichier n'est pas public                                                        
-                            ->disk('local') // Indique d'utiliser le stockage public
+                            ->disk('local') // Indique d'utiliser le stockage local
                             ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
                             ->maxSize(5120)
                             ->openable()
@@ -149,7 +161,7 @@ class CandidatFormSchema
                             ->acceptedFileTypes(['application/pdf', 'image/jpeg', 'image/png'])
                             ->directory(fn ($record) => 'dossiers/candidat-' . ($record?->id ?? 'temp'))
                             ->visibility('private') // Indique à Filament que le fichier n'est pas public                                                        
-                            ->disk('local') // Indique d'utiliser le stockage public
+                            ->disk('local') // Indique d'utiliser le stockage local
                             ->maxSize(5120)
                             ->openable()
                             ->downloadable(),
@@ -161,7 +173,7 @@ class CandidatFormSchema
                 // section 4 statut du dossier
                     Section::make('Statut de votre dossier')
                     ->extraAttributes([
-                    'style' => 'background-color: #f0fdf4; border-color: #bbf7d0;',
+                    'style' => 'color: #ff0000;background-color: #00ff00; border: 1px solid #bbf7d0; rounded-xl;',
                     ])
                     ->columns(1)
                     ->description('Consultez l\'avancement de votre dosiier ici')

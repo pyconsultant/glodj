@@ -11,6 +11,19 @@ use App\Enums\UserRole;
 class CandidatPolicy
 {
     /**
+     * S'exécute avant toutes les autres vérifications.
+     */
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole(UserRole::ADMINISTRATEUR)) {
+            return true; // Accorde TOUTES les autorisations à l'Admin d'un coup
+        }
+
+        return null; // Laisse les autres méthodes (view, update...) décider pour les non-admins
+    }
+
+
+    /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool

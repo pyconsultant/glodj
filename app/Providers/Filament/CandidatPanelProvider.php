@@ -26,9 +26,12 @@ class CandidatPanelProvider extends PanelProvider
         return $panel
             ->id('candidat')
             ->path('candidat')
+//            ->viteTheme('resources/css/filament/admin/theme.css') // modif du 30/08
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Teal,
+                'gray' => Color::Stone,
             ])
+            ->font('Poppins')
             ->discoverResources(in: app_path('Filament/Candidat/Resources'), for: 'App\\Filament\\Candidat\\Resources')
             ->discoverPages(in: app_path('Filament/Candidat/Pages'), for: 'App\\Filament\\Candidat\\Pages')
             ->pages([
