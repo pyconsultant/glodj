@@ -12,6 +12,8 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Actions\Action;
 use App\Enums\UserRole;
+use Filament\Forms\Components\Checkbox;
+
 
 class CandidatFormSchema
 {
@@ -20,7 +22,8 @@ class CandidatFormSchema
      */
     public static function make(bool $isAdmin = false): array
     {
-        return [
+        $user = auth()->user();
+    return [
                 // Section 1 : informations du candidat
                 Section::make(__('Vous'))
                     ->extraAttributes([
@@ -36,13 +39,10 @@ class CandidatFormSchema
                     ->collapsible() // Rend la section repliable par l'utilisateur
                     ->collapsed()
                     ->schema([
-                        // Select::make('user.name')
-                        //     ->label(__('Nom d\'utilisateur / Pseudo'))
-                        //     ->relationship('user', 'name')
-                        //     ->searchable()
-                        //     ->preload()
-                        //     ->required()
-                        //     ->disabled(),
+
+                        Checkbox::make('role')
+                        ,
+
                         Select::make('user_id')
                             ->label(__('Nom d\'utilisateur / Pseudo'))
                             ->relationship('user', 'name')
@@ -54,14 +54,6 @@ class CandidatFormSchema
                             ->disabled()
                             ->label(__('Nom d\'utilisateur / Pseudo')),
                             // ->disabled($isAdmin),
-                        // TextInput::make('user.name')
-                        //     ->label(__('Nom d\'utilisateur / Pseudo'))
-                        //     ->required()
-                        //     ->maxLength(255)
-                        //     // Rend le champ en lecture seule uniquement pour l'admin
-                        //     ->disabled($isAdmin)
-                        //     // Sécurité : empêche l'envoi de la donnée si le champ est désactivé
-                        //     ->dehydrated(fn () => ! $isAdmin),
                         TextInput::make('prenom')
                             ->prefixIcon('heroicon-m-at-symbol')
                             ->prefixIconColor('teal')

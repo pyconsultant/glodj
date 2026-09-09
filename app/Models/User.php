@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Enums\UserRole;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'remember_token'])]
@@ -36,7 +37,8 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
      */
     public function hasRole(UserRole $role): bool
     {
-        return ($this->roles_mask & $role->value) === $role->value;
+//        return ($this->roles_mask & $role->value) === $role->value;
+        return ($this->roles & $role->value) === $role->value;
     }
 
 /**
@@ -44,7 +46,8 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
      */
     public function addRole(UserRole $role): void
     {
-        $this->roles_mask |= $role->value;
+//        $this->roles_mask |= $role->value;
+        $this->roles |= $role->value;
         $this->save();
     }    
 
@@ -82,6 +85,59 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
     {
         return $this->hasOne(Candidat::class);
     }
+
+/**
+     * Accessor moderne pour récupérer la liste des rôles en texte d'après le bitmask $this->role
+     */
+    protected function roleNames(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes): array {
+                $userRoles = [];
+                // Récupère la valeur du champ 'role' de la table
+//                $userRoleBitmask = (int) ($this->getRawOriginal('roles_mask') ?? 0);
+                $userRoleBitmask = (int) ($attributes['roles'] ?? 0);                
+
+                // On parcourt chaque cas de l'Enum
+                foreach (UserRole::cases() as $roleEnum) {
+                    if (($userRoleBitmask & $roleEnum->value) === $roleEnum->value) {
+                        $userRoles[] = method_exists($roleEnum, 'getLabel') 
+                            ? $roleEnum->getLabel() 
+                            : ($roleEnum->label ?? $roleEnum->name);
+                    }
+                }
+
+                return $userRoles;
+            }
+        );
+    }
+
+// /**
+//      * Accessor moderne pour récupérer la liste des rôles en texte d'après le bitmask $this->role
+//      */
+//     protected function userRoles(): Attribute
+//     {
+//         return Attribute::make(
+//             get: function (mixed $value, array $attributes): array {
+//                 $features = [];
+//                 // Récupère la valeur du champ 'role' de la table
+// //                $userRoleBitmask = (int) ($this->getRawOriginal('roles_mask') ?? 0);
+//                 $userRoleBitmask = (int) ($attributes['roles'] ?? 0);                
+
+//                 // On parcourt chaque cas de l'Enum
+//                 foreach (UserRole::cases() as $roleEnum) {
+//                     if (($userRoleBitmask & $roleEnum->value) === $roleEnum->value) {
+//                         $features[] = method_exists($roleEnum, 'getLabel') 
+//                             ? $roleEnum->getLabel() 
+//                             : ($roleEnum->label ?? $roleEnum->name);
+//                     }
+//                 }
+
+//                 return $features;
+//             }
+//         );
+//     }
+
 }
 
 // mdp pour pyr.consultant@glaim.com : Zorgen36

@@ -32,10 +32,10 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('code')
                     ->maxLength(8),
-                Forms\Components\TextInput::make('roles_mask')
-                    ->required()
-                    ->numeric()
-                    ->default(128),
+                // Forms\Components\TextInput::make('roles_mask')
+                //     ->required()
+                //     ->numeric()
+                //     ->default(128),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
                     ->password()
@@ -58,9 +58,9 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('roles_mask')
-                    ->numeric()
-                    ->sortable(),
+                // Tables\Columns\TextColumn::make('roles_mask')
+                //     ->numeric()
+                //     ->sortable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable(),

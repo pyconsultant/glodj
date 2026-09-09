@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+$user = User::findOrFail(6);
+$user = auth()->user();
+
 class Candidat extends Model
 {
     use HasFactory;
@@ -23,4 +26,5 @@ class Candidat extends Model
     {
         return $this->belongsTo(User::class);
     }    
+    
 }

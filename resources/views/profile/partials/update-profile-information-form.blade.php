@@ -9,6 +9,27 @@
         </p>
     </header>
 
+
+    <!-- Affichage de l'ensemble des roles en mode texte -->
+    <div class="mt-4">
+        <x-input-label :value="__('Vos rôles assignés')" />
+        
+        <div class="mt-2 flex flex-wrap gap-2">
+            @forelse ($user->role_names as $roleName)
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">
+                    {{ $roleName }}
+                </span>
+            @empty
+                <span class="text-sm text-gray-500 italic">
+                    Aucun rôle attribué (Valeur actuelle du champ 'role' : {{ $user->role ?? 0 }})
+                </span>
+            @endforelse
+        </div>
+    </div>
+
+
+
+
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
