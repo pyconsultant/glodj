@@ -5,7 +5,7 @@ namespace App\Enums;
 enum UserRole: int
 {
     case ADMINISTRATEUR = 1;
-    case OPERATEUR = 2;
+    case GESTIONNAIRE = 2;
     case EXPLOITANT = 4;
     case COMPTABLE = 8;
     case ANALYSTE = 16;
@@ -18,15 +18,35 @@ enum UserRole: int
 public function label(): string
 {
     return match($this) {
-        self::ADMINISTRATEUR =>'Administratur',
-        self::OPERATEUR =>'Opérateur',
-        self::EXPLOITANT =>'Exploitant',
-        self::COMPTABLE =>'Comptable',
-        self::ANALYSTE =>'Analyste',
-        self::LOCATAIRE =>'Locataire',
-        self::GARANT =>'Garant',
-        self::CANDIDAT =>'Candidat',
-        self::INVITE =>'Invité',
+        self::ADMINISTRATEUR =>__('Administrateur'),
+        self::GESTIONNAIRE =>__('Gestionnaire'),
+        self::EXPLOITANT =>__('Exploitant'),
+        self::COMPTABLE =>__('Comptable'),
+        self::ANALYSTE =>__('Analyste'),
+        self::LOCATAIRE =>__('Locataire'),
+        self::GARANT =>__('Garant'),
+        self::CANDIDAT =>__('Candidat'),
+        self::INVITE =>__('Invité'),
+    };
+}
+
+}
+
+enum StatutDemande: int
+{
+    case A_ETUDIER = 1;
+    case REFUSEE= 2;
+    case COMPLEMENTS_DEMANDES = 3;
+    case ACCEPTEE = 4;
+
+// Libellé propre pour l'affichage
+public function label(): string
+{
+    return match($this) {
+        self::A_ETUDIER =>'a étudier',
+        self::REFUSEE =>'refusée',
+        self::COMPLEMENTS_DEMANDES =>'compléments demandés',
+        self::ACCEPTEE =>'acceptée',
     };
 }
 

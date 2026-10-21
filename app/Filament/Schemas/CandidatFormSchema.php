@@ -22,8 +22,13 @@ class CandidatFormSchema
      */
     public static function make(bool $isAdmin = false): array
     {
-        $user = auth()->user();
+        // $user = auth()->user();
     return [
+//-----------------------------------------------------------------------------------
+
+
+
+//-------------------------------------------------------------------------------------
                 // Section 1 : informations du candidat
                 Section::make(__('Vous'))
                     ->extraAttributes([
@@ -39,10 +44,8 @@ class CandidatFormSchema
                     ->collapsible() // Rend la section repliable par l'utilisateur
                     ->collapsed()
                     ->schema([
-
-                        Checkbox::make('role')
-                        ,
-
+                        // Checkbox::make('role')
+                        // ,
                         Select::make('user_id')
                             ->label(__('Nom d\'utilisateur / Pseudo'))
                             ->relationship('user', 'name')

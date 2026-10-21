@@ -1,4 +1,15 @@
 {
+    "types utilisateurs": "--- TRADUCTIONS DE TYPES UTILISATEUR ---",    
+    "Administrateur":"Administrator",
+    "Gestionnaire":"Manager",
+    "Exploitant":"Operator",
+    "Comptable":"Accountant",
+    "Analyste":"Analyst",
+    "Locataire":"Tenant",
+    "Garant":"Guarantor",
+    "CandidatT":"Applicant",
+    "Invité":"Guest",
+    
     "code": "Code",
     "Désignation": "Designation",
     "Adresse": "Address",
@@ -10,7 +21,7 @@
 
     "_comment_form_candidats": "--- TRADUCTIONS DE LA FORM CANDIDAT ---",    
     "Vous": "You",
-"Donnez-nous quelques informations sur vous.": "Give us some information about yourself.",
+    "Donnez-nous quelques informations sur vous.": "Give us some information about yourself.",
     "Utilisateur rattaché": "Attached user.",
     "Prénom": "First name.",
     "Nom": "Name.",
@@ -31,6 +42,16 @@
     "Ces pièces sont facultatives à ce stade mais leur présence est un +": "These items are optional at this stage, but their presence is a plus.",
     "Pièce d'identité":"Proof of identity",
     "Titre de séjour":"Residence permit",
-    "Certificat Visale, ou GarantMe ou caution Garant physique ...":"Visale Certificate, or GarantMe or physical guarantor deposit..."    
+    "Certificat Visale, ou GarantMe ou caution Garant physique ...":"Visale Certificate, or GarantMe or physical guarantor deposit...",
+
+    "fenetre de connexion": "---  ---",    
+    "Tableau de bord":"Dashboard",
+    "Vous êtes connecté":"You're logged in !",
+    "Connexion":"LOG IN !",
+    "Mot de passe" :"Password",
+    "Mot de passe oublié ?":"Forgot your password ?",
+    "Addresse de courriel":"Email",
+    "Se souvenir de l'identifiant":"Remember me"
+
 }
  

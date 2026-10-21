@@ -24,9 +24,13 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Tootip;
-use Filament\Forms\Components\Actions\Action;
 use Illuminate\Support\HtmlString;
 use App\Filament\Schemas\CandidatFormSchema;
+// use App\Filament\Actions;
+// use App\Filament\Actions\ActionsCandidat;
+
+use Filament\Tables\Actions\Action;
+use Filament\Notifications\Notification;
 
 class CandidatResource extends Resource
 {
@@ -40,15 +44,14 @@ class CandidatResource extends Resource
     {
         $isAdmin = true;
         return $form->schema(
-//            CandidatFormSchema::make(isAdmin: true)  
             CandidatFormSchema::make($isAdmin)            
         ); 
     }
 
     public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
+    {    
+            return $table
+                ->columns([
                 Tables\Columns\TextColumn::make('user.name')
                     ->numeric()
                     ->sortable(),
@@ -94,7 +97,49 @@ class CandidatResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+//                ActionsCandidat::make('promoteToLocataire'),    
+                Tables\Actions\EditAction::make(),  
+                
+//---------------------------------------------------------------------------------------------------------------
+
+// 1. Bouton "Promouvoir en Locataire"
+            Action::make('promoteToLocataire')
+                ->label('Promouvoir')
+                ->icon('heroicon-o-user-plus')
+                ->color('success')
+                ->requiresConfirmation()
+                ->modalHeading('Promouvoir le candidat en locataire')
+                ->modalDescription('Êtes-vous sûr de vouloir transformer ce candidat en locataire ? Cela créera son dossier locataire et gèlera la fiche candidat.')
+                ->modalSubmitActionLabel('Oui, promouvoir')
+                // Se masque automatiquement si le candidat est déjà promu
+                ->hidden(fn (Candidat $record) => (bool) $record->is_promoted)
+                ->action(function (Candidat $record) {
+                    
+                    // Création de l'enregistrement Locataire
+                    Locataire::create([
+                        'user_id'  => $record->user_id,
+                        'adresse'  => $record->adresse,
+                        'telephone'=> $record->telephone,
+                    ]);
+
+                    // Ajout du rôle LOCATAIRE sur le User via le bitmask
+                    $user = $record->user;
+                    $user->roles = $user->roles | UserRole::LOCATAIRE->value;
+                    $user->save();
+
+                    // Gel de la fiche candidat
+                    $record->update([
+                        'is_promoted' => true,
+                    ]);
+
+                    Notification::make()
+                        ->title('Candidat promu avec succès !')
+                        ->success()
+                        ->send();
+                }),
+
+//---------------------------------------------------------------------------------------------------------------                
+
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

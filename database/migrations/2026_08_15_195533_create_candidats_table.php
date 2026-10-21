@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\StatutDemande;
 
 return new class extends Migration
 {
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('nom')->nullable();
             $table->string('adresse_mail')->nullable();
             $table->string('telephone')->nullable();
-            $table->string('location')->nullable();
+            $table->json('location')->nullable();
             $table->string('sexe')->nullable();
             $table->date('date_naissance')->nullable();                           
             $table->date('date_entree_souhaitee')->nullable();                           
@@ -32,8 +33,8 @@ return new class extends Migration
             $table->string('titre_sejour_path')->nullable(); // seulement si ressortisant non-UE
             $table->string('attestation_garant_path')->nullable(); // Visale, Garanteme, 
             // Suivi du dossier de candidature
-            $table->string('statut')->default('en_attente'); // en_attente, valide,
-            $table->longtext('complement_libre');
+            $table->string('statut')->default(StatutDemande::A_ETUDIER->value); // en_attente, valide,
+            $table->longtext('complement_libre')->nullable();
             $table->timestamps();
         });
     }
