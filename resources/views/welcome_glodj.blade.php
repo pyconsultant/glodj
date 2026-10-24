@@ -26,7 +26,9 @@ body {
 }
 </style>
 
+<!-- <DIV style="text-align: center;border-radius: 5px;padding: 10px;color:blue;background-color: rgb(207, 232, 220);border: 2px solid rgb(79, 185, 227);"> -->
 <DIV style="text-align: center;border-radius: 5px;padding: 10px;color:blue;background-color: rgb(207, 232, 220);border: 2px solid rgb(79, 185, 227);">
+
 <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4" >
 <img src="{{ asset('images/jasmin.png') }}" style="max-width: 80px; height: auto;  alt='logo'" >               
         Le Portail de Gestion de L'Odeur Du Jasmin
